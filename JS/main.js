@@ -9,7 +9,7 @@ import { initAccordion } from './accordion.js';
 import { initGallery } from './gallery.js';
 import { initModal } from './modal.js';
 
-initAccent();
+// initAccent();   // accent switcher disabled — buttons commented out in index.html
 initReveal();
 initNavSpy();
 initTabs();
