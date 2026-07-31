@@ -4,21 +4,21 @@
    ============================================================ */
 
 :root{
-  /* --- palette -------------------------------------------- */
-  --antacid:#cfe9dd;
-  --antacid-deep:#a9d6c5;
-  --pink:#f6dae3;
-  --pink-deep:#e9b6c8;
-  --blue:#3f5b7d;
-  --blue-soft:#8fa6c0;
-  --petrol:#6c9a9a;
-  --petrol-soft:#a8c9c7;
+  /* --- palette — steel-leaning pastels ---------------------- */
+  --antacid:#d6e5ec;
+  --antacid-deep:#a8c6d8;
+  --pink:#eedbe4;
+  --pink-deep:#d9b3c6;
+  --blue:#3c5877;
+  --blue-soft:#93a9c2;
+  --petrol:#5f8698;
+  --petrol-soft:#a3c0cf;
 
   /* --- surfaces & text ------------------------------------ */
-  --paper:#f8f6f3;
+  --paper:#f7f7f7;
   --card:#ffffff;
-  --ink:#2b3a4a;
-  --ink-dim:#6d8090;
+  --ink:#293748;
+  --ink-dim:#697d90;
   --line:rgba(63,91,125,.14);
 
   /* --- active accent (swapped by the colour switcher) ------ */
