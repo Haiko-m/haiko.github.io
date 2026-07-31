@@ -9,7 +9,7 @@ import { initAccordion } from './accordion.js';
 import { initGallery } from './gallery.js';
 import { initModal } from './modal.js';
 
-// initAccent();   // accent switcher disabled — buttons commented out in index.html
+// initAccent();   // disabled — swatches are commented out in index.html
 initReveal();
 initNavSpy();
 initTabs();
@@ -31,4 +31,3 @@ document.getElementById('form')?.addEventListener('submit', (e) => {
 document.getElementById('toFive')?.addEventListener('click', () => {
   document.getElementById('five').scrollIntoView({ behavior:'smooth' });
 });
-
