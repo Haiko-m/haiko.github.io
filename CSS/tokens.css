@@ -1,1 +1,61 @@
+/* ============================================================
+   tokens.css — every value you'd want to tweak lives here.
+   Load this BEFORE main.css.
+   ============================================================ */
 
+:root{
+  /* --- palette -------------------------------------------- */
+  --antacid:#cfe9dd;
+  --antacid-deep:#a9d6c5;
+  --pink:#f6dae3;
+  --pink-deep:#e9b6c8;
+  --blue:#3f5b7d;
+  --blue-soft:#8fa6c0;
+  --petrol:#6c9a9a;
+  --petrol-soft:#a8c9c7;
+
+  /* --- surfaces & text ------------------------------------ */
+  --paper:#f8f6f3;
+  --card:#ffffff;
+  --ink:#2b3a4a;
+  --ink-dim:#6d8090;
+  --line:rgba(63,91,125,.14);
+
+  /* --- active accent (swapped by the colour switcher) ------ */
+  --accent:var(--petrol);
+  --accent-soft:var(--antacid);
+
+  /* --- type ----------------------------------------------- */
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Karla', system-ui, sans-serif;
+  --font-mono:'Space Grotesk', monospace;
+
+  --fs-xs:11px;
+  --fs-sm:13px;
+  --fs-base:14px;
+  --fs-md:17px;
+  --fs-lg:24px;
+  --fs-hero:clamp(38px, 7vw, 62px);
+
+  /* --- spacing & shape ------------------------------------ */
+  --gap:14px;
+  --pad-card:20px;
+  --pad-section:56px;
+  --wrap:1080px;
+  --r:18px;
+  --r-sm:14px;
+
+  /* --- depth ---------------------------------------------- */
+  --shadow:0 1px 2px rgba(43,58,74,.05), 0 10px 30px -18px rgba(43,58,74,.35);
+  --shadow-lift:0 2px 4px rgba(43,58,74,.06), 0 22px 44px -22px rgba(43,58,74,.45);
+
+  /* --- motion --------------------------------------------- */
+  --ease:cubic-bezier(.16,1,.3,1);
+  --dur-fast:.18s;
+  --dur:.35s;
+}
+
+/* accent themes — applied to <html data-accent="..."> */
+[data-accent="petrol"]{ --accent:var(--petrol);    --accent-soft:var(--antacid); }
+[data-accent="pink"]  { --accent:var(--pink-deep); --accent-soft:var(--pink); }
+[data-accent="blue"]  { --accent:var(--blue);      --accent-soft:var(--blue-soft); }
