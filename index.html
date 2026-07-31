@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-accent="petrol">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +11,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Karla:wght@400;500;700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- tokens must load before main -->
-<link rel="stylesheet" href="./CSS/tokens.css">
-<link rel="stylesheet" href="./CSS/main.css">
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/main.css">
 
-<script type="module" src="./JS/main.js"></script>
+<script type="module" src="./js/main.js"></script>
 </head>
 <body>
 
 <div class="topbar">
   <div class="wrap topbar-in">
+    <!-- brand mark + wordmark — re-enable by removing these two comment markers
     <span class="brand"><i></i> Example</span>
+    -->
     <nav class="navlinks">
       <a href="#one" class="on">Example 1</a>
       <a href="#two">Example 2</a>
@@ -28,13 +30,14 @@
       <a href="#four">Example 4</a>
       <a href="#five">Example 5</a>
     </nav>
-    <!-- accent switcher — re-enable by removing these comment markers
-<div class="swatches" role="group" aria-label="Change accent colour">
-  <button class="sw p1" data-accent="petrol" aria-pressed="true" aria-label="Petrol accent"></button>
-  <button class="sw p2" data-accent="pink" aria-pressed="false" aria-label="Pink accent"></button>
-  <button class="sw p3" data-accent="blue" aria-pressed="false" aria-label="Blue accent"></button>
-</div>
--->
+    <!-- accent switcher — re-enable by removing these two comment markers
+         and uncommenting initAccent() in js/main.js
+    <div class="swatches" role="group" aria-label="Change accent colour">
+      <button class="sw p1" data-accent="petrol" aria-pressed="true" aria-label="Petrol accent"></button>
+      <button class="sw p2" data-accent="pink" aria-pressed="false" aria-label="Pink accent"></button>
+      <button class="sw p3" data-accent="blue" aria-pressed="false" aria-label="Blue accent"></button>
+    </div>
+    -->
   </div>
 </div>
 
@@ -221,7 +224,7 @@
 <!-- overlay panel, filled from js/content.js -->
 <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="mTitle">
   <div class="modal">
-    <div class="modal-band"></div>
+    <div class="modal-band" id="mBand"></div>
     <div class="modal-body">
       <p class="modal-kicker mono" id="mKicker">Example 1.1</p>
       <h3 id="mTitle">Example title</h3>
