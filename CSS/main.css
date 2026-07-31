@@ -64,7 +64,13 @@ button,input,textarea,select{font:inherit; color:inherit;}
 .navlinks a:hover,
 .navlinks a.on{background:var(--accent-soft); color:var(--ink);}
 .navlinks a.on{font-weight:500;}
-@media(max-width:720px){ .navlinks{display:none;} }
+/* Nav stays visible on mobile — the strip scrolls sideways if needed.
+   To hide it again: .navlinks{display:none;} inside this query. */
+@media(max-width:720px){
+  .navlinks{gap:2px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+  .navlinks::-webkit-scrollbar{display:none;}
+  .navlinks a{padding:7px 10px; font-size:12.5px; white-space:nowrap;}
+}
 
 .swatches{display:flex; gap:6px; margin-left:auto;}
 @media(min-width:721px){ .swatches{margin-left:14px;} }
@@ -238,4 +244,3 @@ section{padding:var(--pad-section) 0 0;}
 footer{margin-top:64px; padding:22px 0 40px; border-top:1px solid var(--line);
        display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
        font-size:12px; color:var(--ink-dim);}
-
