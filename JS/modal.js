@@ -15,6 +15,7 @@ export function initModal(){
   const text    = document.getElementById('mText');
   const tagRow  = document.getElementById('mTags');
   const closeEl = document.getElementById('mClose');
+  const band    = document.getElementById('mBand');
   if(!scrim) return;
 
   let index = 0;
@@ -22,6 +23,13 @@ export function initModal(){
 
   function render(){
     const item = modals[index];
+
+    /* Tint the header band to match the card that opened it. Falling back
+       to '' restores the accent gradient defined in main.css. */
+    band.style.background = item.shade
+      ? `linear-gradient(140deg, ${item.shade}, var(--card))`
+      : '';
+
     kicker.textContent = item.kicker;
     title.textContent = item.title;
     text.textContent = item.text;
