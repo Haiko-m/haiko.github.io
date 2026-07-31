@@ -1,24 +1,27 @@
 /* ============================================================
    gallery.js — builds the card grid from content.js and filters it.
+   Swatch colours come from the modal entry each card opens, so the
+   card and its panel always match.
    ============================================================ */
 
-import { gallery } from './content.js';
+import { gallery, modals } from './content.js';
 
 export function initGallery(){
   const grid = document.getElementById('gal');
   const count = document.getElementById('galCount');
   if(!grid) return;
 
-  /* Build cards. textContent is used for names so copy can't inject markup. */
-  gallery.forEach((item, i) => {
+  gallery.forEach(item => {
+    const source = modals[item.modal];
+
     const card = document.createElement('button');
     card.className = 'gcard';
     card.dataset.group = item.group;
-    card.dataset.modal = String(i % 6);
+    card.dataset.modal = String(item.modal);
 
     const swatch = document.createElement('div');
     swatch.className = 'swatch';
-    swatch.style.background = item.shade;
+    swatch.style.background = source.shade;   /* same value the modal band uses */
 
     const meta = document.createElement('div');
     meta.className = 'gmeta';
