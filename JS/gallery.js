@@ -7,6 +7,10 @@
 
 import { gallery, modals } from './content.js';
 
+/* Wording for the generated card subtitles and the counter chip. */
+const GROUP_LABEL = '[Project type]';
+const SHOWN_LABEL = 'shown';
+
 /* Cards live inside a <button>, whose content model is phrasing-only —
    hence spans rather than divs. main.css gives them display:block. */
 function buildCard({ name, group, modal }){
@@ -32,7 +36,7 @@ function buildCard({ name, group, modal }){
 
   const sub = document.createElement('span');
   sub.className = 'gsub';
-  sub.textContent = `Example group ${group.toUpperCase()}`;
+  sub.textContent = `${GROUP_LABEL} ${group.toUpperCase()}`;
 
   meta.append(title, sub);
   card.append(swatch, meta);
@@ -46,8 +50,8 @@ export function initGallery(){
 
   /* Build off-document, then attach once — one reflow instead of one per card. */
   const fragment = document.createDocumentFragment();
-  gallery.forEach(item => {
-    const card = buildCard(item);
+  gallery.forEach(entry => {
+    const card = buildCard(entry);
     if(card) fragment.append(card);
   });
   grid.append(fragment);
@@ -55,7 +59,10 @@ export function initGallery(){
   const cards = [...grid.querySelectorAll('.gcard')];
   const chips = [...document.querySelectorAll('.fchip')];
 
+  let activeFilter = 'all';
+
   function applyFilter(filter){
+    activeFilter = filter;
     let shown = 0;
     cards.forEach(card => {
       const visible = filter === 'all' || card.dataset.group === filter;
@@ -63,7 +70,7 @@ export function initGallery(){
       card.hidden = !visible;              /* hides it from assistive tech too */
       if(visible) shown++;
     });
-    count.textContent = `${shown} shown`;
+    count.textContent = `${shown} ${SHOWN_LABEL}`;
   }
 
   chips.forEach(chip => {
@@ -73,5 +80,5 @@ export function initGallery(){
     });
   });
 
-  applyFilter('all');                      /* seeds the count from the data */
+  applyFilter(activeFilter);               /* seeds the count from the data */
 }
