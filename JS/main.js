@@ -11,7 +11,7 @@ import { initModal } from './modal.js';
 
 /* The accent switcher is disabled — its markup is commented out in
    index.html. To restore it, uncomment there and add initAccent to the
-   import above and the list below. */
+   import from ./ui.js and to the list below. */
 
 [initReveal, initNavSpy, initTabs, initAccordion, initGallery, initModal]
   .forEach(init => init());
@@ -24,5 +24,5 @@ const showToast = createToast();
 
 document.getElementById('contactForm')?.addEventListener('submit', event => {
   event.preventDefault();
-  showToast('Example toast — action received');
+  showToast('[Confirmation message shown after the form is sent]');
 });
