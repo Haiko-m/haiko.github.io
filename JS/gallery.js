@@ -1,61 +1,77 @@
 /* ============================================================
    gallery.js — builds the card grid from content.js and filters it.
-   Swatch colours come from the modal entry each card opens, so the
-   card and its panel always match.
+
+   Swatch colours are read from the modal entry each card opens, so a card
+   and the panel it opens can never drift apart.
    ============================================================ */
 
 import { gallery, modals } from './content.js';
 
+/* Cards live inside a <button>, whose content model is phrasing-only —
+   hence spans rather than divs. main.css gives them display:block. */
+function buildCard({ name, group, modal }){
+  const source = modals[modal];
+  if(!source) return null;
+
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'gcard';
+  card.dataset.group = group;
+  card.dataset.modal = String(modal);
+
+  const swatch = document.createElement('span');
+  swatch.className = 'swatch';
+  swatch.style.background = source.shade;
+
+  const meta = document.createElement('span');
+  meta.className = 'gmeta';
+
+  const title = document.createElement('span');
+  title.className = 'gname';
+  title.textContent = name;
+
+  const sub = document.createElement('span');
+  sub.className = 'gsub';
+  sub.textContent = `Example group ${group.toUpperCase()}`;
+
+  meta.append(title, sub);
+  card.append(swatch, meta);
+  return card;
+}
+
 export function initGallery(){
   const grid = document.getElementById('gal');
   const count = document.getElementById('galCount');
-  if(!grid) return;
+  if(!grid || !count) return;
 
+  /* Build off-document, then attach once — one reflow instead of one per card. */
+  const fragment = document.createDocumentFragment();
   gallery.forEach(item => {
-    const source = modals[item.modal];
-
-    const card = document.createElement('button');
-    card.className = 'gcard';
-    card.dataset.group = item.group;
-    card.dataset.modal = String(item.modal);
-
-    const swatch = document.createElement('div');
-    swatch.className = 'swatch';
-    swatch.style.background = source.shade;   /* same value the modal band uses */
-
-    const meta = document.createElement('div');
-    meta.className = 'gmeta';
-
-    const name = document.createElement('div');
-    name.className = 'gname';
-    name.textContent = item.name;
-
-    const sub = document.createElement('div');
-    sub.className = 'gsub';
-    sub.textContent = 'Example group ' + item.group.toUpperCase();
-
-    meta.append(name, sub);
-    card.append(swatch, meta);
-    grid.appendChild(card);
+    const card = buildCard(item);
+    if(card) fragment.append(card);
   });
+  grid.append(fragment);
 
-  /* Filter chips. */
-  const chips = document.querySelectorAll('.fchip');
+  const cards = [...grid.querySelectorAll('.gcard')];
+  const chips = [...document.querySelectorAll('.fchip')];
+
+  function applyFilter(filter){
+    let shown = 0;
+    cards.forEach(card => {
+      const visible = filter === 'all' || card.dataset.group === filter;
+      card.classList.toggle('hide', !visible);
+      card.hidden = !visible;              /* hides it from assistive tech too */
+      if(visible) shown++;
+    });
+    count.textContent = `${shown} shown`;
+  }
+
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
-      chips.forEach(c => c.setAttribute('aria-pressed','false'));
-      chip.setAttribute('aria-pressed','true');
-
-      const filter = chip.dataset.filter;
-      let shown = 0;
-      grid.querySelectorAll('.gcard').forEach(card => {
-        const visible = filter === 'all' || card.dataset.group === filter;
-        card.classList.toggle('hide', !visible);
-        if(visible) shown++;
-      });
-      count.textContent = shown + ' shown';
+      chips.forEach(other => other.setAttribute('aria-pressed', String(other === chip)));
+      applyFilter(chip.dataset.filter);
     });
   });
 
-  count.textContent = gallery.length + ' shown';
+  applyFilter('all');                      /* seeds the count from the data */
 }
