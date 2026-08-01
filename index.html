@@ -33,7 +33,14 @@
       <a href="#three">Experience</a>
       <a href="#four">Projects</a>
       <a href="#five">Contact</a>
-    </nav>    <!-- accent switcher — re-enable by removing these two comment markers
+    </nav>
+
+    <!-- Back up to the hub at haiko.be. Deliberately NOT inside .navlinks:
+         the scroll-spy in JS/main.js resolves every link in there as an
+         in-page anchor, and an absolute URL would break it. -->
+    <a class="sitelink mono" href="https://haiko.be"><span aria-hidden="true">←</span> haiko.be</a>
+
+    <!-- accent switcher — re-enable by removing these two comment markers
          and uncommenting initAccent() in js/main.js
     <div class="swatches" role="group" aria-label="Change accent colour">
       <button class="sw p1" data-accent="petrol" aria-pressed="true" aria-label="Petrol accent"></button>
@@ -220,6 +227,8 @@
 
   <footer>
     <span class="mono">©2026 Haiko Maadanjian</span>
+    <!-- second way back to the hub, for people who reach the bottom -->
+    <a class="mono footlink" href="https://haiko.be">haiko.be</a>
     <span class="mono">Last updated [August 2026]</span>
   </footer>
 </main>
