@@ -1,33 +1,28 @@
 /* ============================================================
-   main.js — entry point. Loaded as a module, so it runs after the
-   DOM has parsed; no DOMContentLoaded wrapper needed.
+   main.js — entry point. Loaded as a module, so it runs after the DOM
+   has parsed; no DOMContentLoaded wrapper is needed.
    ============================================================ */
 
-import { initAccent, initReveal, initNavSpy, createToast } from './ui.js';
+import { initReveal, initNavSpy, createToast } from './ui.js';
 import { initTabs } from './tabs.js';
 import { initAccordion } from './accordion.js';
 import { initGallery } from './gallery.js';
 import { initModal } from './modal.js';
 
-// initAccent();   // disabled — swatches are commented out in index.html
-initReveal();
-initNavSpy();
-initTabs();
-initAccordion();
-initGallery();
-initModal();
+/* The accent switcher is disabled — its markup is commented out in
+   index.html. To restore it, uncomment there and add initAccent to the
+   import above and the list below. */
+
+[initReveal, initNavSpy, initTabs, initAccordion, initGallery, initModal]
+  .forEach(init => init());
 
 /* Contact form.
-   To make it send for real, delete this handler, then set
-   action="https://formspree.io/f/YOUR_ID" and method="post" on the
-   <form>, and give each input a name attribute. */
+   To make it send for real: delete this listener, then add
+   action="https://formspree.io/f/YOUR_ID" and method="post" to the form.
+   The inputs already carry name attributes. */
 const showToast = createToast();
-document.getElementById('form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  showToast('Example toast — action received');
-});
 
-/* Smooth-scroll button in the hero. */
-document.getElementById('toFive')?.addEventListener('click', () => {
-  document.getElementById('five').scrollIntoView({ behavior:'smooth' });
+document.getElementById('contactForm')?.addEventListener('submit', event => {
+  event.preventDefault();
+  showToast('Example toast — action received');
 });
