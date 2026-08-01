@@ -1,50 +1,73 @@
 /* ============================================================
    tabs.js — tab switching plus the meter bars inside each panel.
-   Meters replay every time their panel becomes visible.
+
+   Implements the ARIA tabs pattern: arrow keys move between tabs,
+   Home/End jump to the ends, and only the active tab is in the tab
+   order (roving tabindex) so Tab moves past the whole group.
    ============================================================ */
 
-/* Reset each bar to 0 then animate to its data-level on the next frame. */
+/* Replay the bar animation inside `scope`.
+
+   Setting width to 0 and back in the same task would be coalesced into a
+   single style change and nothing would animate, so the transition is
+   suspended, a reflow is forced to flush the 0 state, then it's restored. */
 export function runMeters(scope = document){
   scope.querySelectorAll('.fill').forEach(bar => {
+    bar.style.transition = 'none';
     bar.style.width = '0%';
-    requestAnimationFrame(() => { bar.style.width = bar.dataset.level + '%'; });
+    void bar.offsetWidth;                 /* forced reflow — the flush */
+    bar.style.transition = '';
+    bar.style.width = `${bar.dataset.level}%`;
   });
 }
 
 export function initTabs(){
-  const tabs = document.querySelectorAll('.tab');
-  const panels = document.querySelectorAll('.tabpanel');
+  const tablist = document.querySelector('.tablist');
+  if(!tablist) return;
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.setAttribute('aria-selected','false'));
-      tab.setAttribute('aria-selected','true');
+  const tabs = [...tablist.querySelectorAll('.tab')];
+  const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+  if(!tabs.length || panels.some(panel => !panel)) return;
 
-      panels.forEach(p => p.classList.remove('on'));
-      const panel = document.querySelector(`.tabpanel[data-panel="${tab.dataset.tab}"]`);
-      panel.classList.add('on');
-      runMeters(panel);
+  function activate(next, { focus = false } = {}){
+    tabs.forEach((tab, i) => {
+      const selected = i === next;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;   /* roving tabindex */
+      panels[i].classList.toggle('on', selected);
+      panels[i].hidden = !selected;
     });
-  });
+    if(focus) tabs[next].focus();
+    runMeters(panels[next]);
+  }
 
-  /* Left/right arrow keys move between tabs when one has focus. */
-  document.querySelector('.tablist')?.addEventListener('keydown', (e) => {
-    if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    const list = [...tabs];
-    const i = list.indexOf(document.activeElement);
-    if(i === -1) return;
-    const next = e.key === 'ArrowRight'
-      ? (i + 1) % list.length
-      : (i - 1 + list.length) % list.length;
-    list[next].focus();
-    list[next].click();
+  tabs.forEach((tab, i) => tab.addEventListener('click', () => activate(i)));
+
+  tablist.addEventListener('keydown', event => {
+    const current = tabs.indexOf(document.activeElement);
+    if(current === -1) return;
+
+    const moves = {
+      ArrowRight: (current + 1) % tabs.length,
+      ArrowLeft:  (current - 1 + tabs.length) % tabs.length,
+      Home: 0,
+      End: tabs.length - 1
+    };
+    const next = moves[event.key];
+    if(next === undefined) return;
+
+    event.preventDefault();               /* stop Home/End scrolling the page */
+    activate(next, { focus: true });
   });
 
   /* Animate meters the first time a panel scrolls into view. */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){ runMeters(e.target); io.unobserve(e.target); }
+  const observer = new IntersectionObserver((entries, self) => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      runMeters(entry.target);
+      self.unobserve(entry.target);
     });
-  }, { threshold:.3 });
-  panels.forEach(p => io.observe(p));
+  }, { threshold: 0.3 });
+
+  panels.forEach(panel => observer.observe(panel));
 }
