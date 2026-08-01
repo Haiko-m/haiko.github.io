@@ -3,38 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Example</title>
-<meta name="description" content="Example description.">
+<title>[Your name] — [Your role]</title>
+<meta name="description" content="[One line describing you and what you do — this is what shows in search results and link previews]">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Karla:wght@400;500;700&amp;family=Space+Grotesk:wght@400;500&amp;display=swap" rel="stylesheet">
 
 <!-- tokens must load before main -->
-<link rel="stylesheet" href="./CSS/tokens.css?v=1">
-<link rel="stylesheet" href="./CSS/main.css?v=1">
+<link rel="stylesheet" href="./css/tokens.css?v=1">
+<link rel="stylesheet" href="./css/main.css?v=1">
 
 <!-- Marks that JS is running. Reveal animations only apply when this class
      is present, so the page stays readable if the modules fail to load. -->
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
-<script type="module" src="./JS/main.js?v=1"></script>
+<script type="module" src="./js/main.js?v=1"></script>
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <!-- brand mark + wordmark — re-enable by removing these two comment markers
-    <span class="brand"><span class="brand-mark" aria-hidden="true"></span> Example</span>
+    <span class="brand"><span class="brand-mark" aria-hidden="true"></span> [Your name]</span>
     -->
     <nav class="navlinks">
-      <a href="#one" class="on">Example 1</a>
-      <a href="#two">Example 2</a>
-      <a href="#three">Example 3</a>
-      <a href="#four">Example 4</a>
-      <a href="#five">Example 5</a>
-    </nav>
-    <!-- accent switcher — re-enable by removing these two comment markers
+      <a href="#one" class="on">Highlights</a>
+      <a href="#two">Skills</a>
+      <a href="#three">Experience</a>
+      <a href="#four">Projects</a>
+      <a href="#five">Contact</a>
+    </nav>    <!-- accent switcher — re-enable by removing these two comment markers
          and uncommenting initAccent() in js/main.js
     <div class="swatches" role="group" aria-label="Change accent colour">
       <button class="sw p1" data-accent="petrol" aria-pressed="true" aria-label="Petrol accent"></button>
@@ -49,57 +48,57 @@
 
   <section class="hero" aria-labelledby="heroTitle">
     <div>
-      <p class="eyebrow mono">Example label</p>
-      <h1 id="heroTitle">Example heading<br><em>example accent</em></h1>
-      <p class="lede">Example text. This paragraph is placeholder copy that sits where a short introduction would go — two lines is usually enough.</p>
+      <p class="eyebrow mono">[Availability — e.g. open to work / based in Ghent]</p>
+      <h1 id="heroTitle">[Your name]<br><em>[the role you want next]</em></h1>
+      <p class="lede">[One or two sentences: what you do, who you do it for, and what you are looking for. Keep it under 30 words.]</p>
       <div class="hero-actions">
-        <button class="btn btn-solid" data-modal="0">Open example 1</button>
-        <a class="btn btn-ghost" href="#five">Go to example 5</a>
+        <button class="btn btn-solid" data-modal="0">[Primary action — e.g. Download CV]</button>
+        <a class="btn btn-ghost" href="#five">[Secondary action — e.g. Get in touch]</a>
       </div>
     </div>
     <div class="hero-card">
-      <div class="stat-row"><span class="stat-k">Example key 1</span><span class="stat-v">01</span></div>
-      <div class="stat-row"><span class="stat-k">Example key 2</span><span class="stat-v">24</span></div>
-      <div class="stat-row"><span class="stat-k">Example key 3</span><span class="stat-v">6.5</span></div>
-      <div class="stat-row"><span class="stat-k">Example key 4</span><span class="stat-v">98%</span></div>
+      <div class="stat-row"><span class="stat-k">[Metric label]</span><span class="stat-v">[00]</span></div>
+      <div class="stat-row"><span class="stat-k">[Metric label]</span><span class="stat-v">[00]</span></div>
+      <div class="stat-row"><span class="stat-k">[Metric label]</span><span class="stat-v">[00]</span></div>
+      <div class="stat-row"><span class="stat-k">[Metric label]</span><span class="stat-v">[00]</span></div>
     </div>
   </section>
 
   <!-- 1 — bento grid -->
   <section id="one">
-    <div class="sec-head"><h2>Example 1</h2><span class="rule"></span><span class="chip-count">6 items</span></div>
+    <div class="sec-head"><h2>Highlights</h2><span class="rule"></span><span class="chip-count">[n] highlights</span></div>
     <div class="bento">
       <button class="tile t-a reveal" data-modal="0">
-        <span class="tile-num mono">Example 1.1</span>
-        <span class="tile-title">Example title</span>
-        <span class="tile-desc">Example text describing this card in one or two short lines.</span>
+        <span class="tile-num mono">[Highlight 1]</span>
+        <span class="tile-title">[Headline — the single most impressive thing]</span>
+        <span class="tile-desc">[One line of supporting detail. This card is large, so it can carry your strongest point.]</span>
         <span class="tile-open mono">Open →</span>
       </button>
       <button class="tile t-b reveal" data-modal="1">
-        <span class="tile-num mono">Example 1.2</span>
-        <span class="tile-title">Example title</span>
-        <span class="tile-desc">Example text describing this card in one or two short lines.</span>
+        <span class="tile-num mono">[Highlight 2]</span>
+        <span class="tile-title">[Headline]</span>
+        <span class="tile-desc">[One line of supporting detail.]</span>
         <span class="tile-open mono">Open →</span>
       </button>
       <button class="tile t-c reveal" data-modal="2">
-        <span class="tile-num mono">Example 1.3</span>
-        <span class="tile-title">Example title</span>
+        <span class="tile-num mono">[Highlight 3]</span>
+        <span class="tile-title">[Short headline]</span>
         <span class="tile-open mono">Open →</span>
       </button>
       <button class="tile t-d reveal" data-modal="3">
-        <span class="tile-num mono">Example 1.4</span>
-        <span class="tile-title">Example title</span>
+        <span class="tile-num mono">[Highlight 4]</span>
+        <span class="tile-title">[Short headline]</span>
         <span class="tile-open mono">Open →</span>
       </button>
       <button class="tile t-e reveal" data-modal="4">
-        <span class="tile-num mono">Example 1.5</span>
-        <span class="tile-title">Example title</span>
+        <span class="tile-num mono">[Highlight 5]</span>
+        <span class="tile-title">[Short headline]</span>
         <span class="tile-open mono">Open →</span>
       </button>
       <button class="tile t-f reveal" data-modal="5">
         <span>
-          <span class="tile-num mono">Example 1.6</span><br>
-          <span class="tile-title">Example wide card</span>
+          <span class="tile-num mono">[Highlight 6]</span><br>
+          <span class="tile-title">[Wide card — a closing statement or a link out]</span>
         </span>
         <span class="tile-open mono">Open →</span>
       </button>
@@ -108,44 +107,44 @@
 
   <!-- 2 — tabs -->
   <section id="two">
-    <div class="sec-head"><h2>Example 2</h2><span class="rule"></span><span class="chip-count">3 tabs</span></div>
+    <div class="sec-head"><h2>Skills</h2><span class="rule"></span><span class="chip-count">[n] areas</span></div>
     <div class="tabs reveal">
-      <div class="tablist" role="tablist" aria-label="Example sections">
-        <button class="tab" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true"  tabindex="0">Example tab 1</button>
-        <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">Example tab 2</button>
-        <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">Example tab 3</button>
+      <div class="tablist" role="tablist" aria-label="Skill areas">
+        <button class="tab" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true"  tabindex="0">[Skill area 1]</button>
+        <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">[Skill area 2]</button>
+        <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">[Skill area 3]</button>
       </div>
 
       <div class="tabpanel on" role="tabpanel" id="panel-0" aria-labelledby="tab-0" tabindex="0">
         <div>
-          <div class="meter"><div class="meter-lab"><b>Example item 1</b><span>Example</span></div><div class="track"><div class="fill" data-level="92"></div></div></div>
-          <div class="meter"><div class="meter-lab"><b>Example item 2</b><span>Example</span></div><div class="track"><div class="fill" data-level="78"></div></div></div>
-          <div class="meter"><div class="meter-lab"><b>Example item 3</b><span>Example</span></div><div class="track"><div class="fill" data-level="64"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="92"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="78"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="64"></div></div></div>
         </div>
         <div>
-          <p>Example text. This column holds supporting placeholder copy for the first tab.</p>
-          <div class="pill-row"><span class="pill">Example</span><span class="pill">Example</span><span class="pill">Example</span></div>
+          <p>[Two lines on how you work in this area — approach, not a tool list.]</p>
+          <div class="pill-row"><span class="pill">[Tool]</span><span class="pill">[Tool]</span><span class="pill">[Tool]</span></div>
         </div>
       </div>
 
       <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0" hidden>
         <div>
-          <div class="meter"><div class="meter-lab"><b>Example item 4</b><span>Example</span></div><div class="track"><div class="fill" data-level="85"></div></div></div>
-          <div class="meter"><div class="meter-lab"><b>Example item 5</b><span>Example</span></div><div class="track"><div class="fill" data-level="55"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="85"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="55"></div></div></div>
         </div>
         <div>
-          <p>Example text for the second tab.</p>
-          <div class="pill-row"><span class="pill">Example</span><span class="pill">Example</span></div>
+          <p>[Two lines on how you work in this area.]</p>
+          <div class="pill-row"><span class="pill">[Tool]</span><span class="pill">[Tool]</span></div>
         </div>
       </div>
 
       <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" hidden>
         <div>
-          <div class="meter"><div class="meter-lab"><b>Example item 6</b><span>Example</span></div><div class="track"><div class="fill" data-level="70"></div></div></div>
+          <div class="meter"><div class="meter-lab"><b>[Capability]</b><span>[Years or level]</span></div><div class="track"><div class="fill" data-level="70"></div></div></div>
         </div>
         <div>
-          <p>Example text for the third tab.</p>
-          <div class="pill-row"><span class="pill">Example</span></div>
+          <p>[Two lines on how you work in this area.]</p>
+          <div class="pill-row"><span class="pill">[Tool]</span></div>
         </div>
       </div>
     </div>
@@ -153,75 +152,75 @@
 
   <!-- 3 — accordion -->
   <section id="three">
-    <div class="sec-head"><h2>Example 3</h2><span class="rule"></span><span class="chip-count">4 rows</span></div>
+    <div class="sec-head"><h2>Experience</h2><span class="rule"></span><span class="chip-count">[n] roles</span></div>
     <div class="acc reveal">
       <div class="acc-item">
-        <button class="acc-btn"><span class="idx mono">01</span> Example row 1 <span class="plus"></span></button>
-        <div class="acc-body"><div class="acc-inner">Example text. Expanded placeholder content sits here, with room for a few sentences.
-          <div class="pill-row"><span class="pill">Example</span><span class="pill">Example</span></div></div></div>
+        <button class="acc-btn"><span class="idx mono">01</span> [Role] · [Organisation] · [Years] <span class="plus"></span></button>
+        <div class="acc-body"><div class="acc-inner">[What you owned, and what measurably changed because of you. Two or three sentences.]
+          <div class="pill-row"><span class="pill">[Tool]</span><span class="pill">[Tool]</span></div></div></div>
       </div>
       <div class="acc-item">
-        <button class="acc-btn"><span class="idx mono">02</span> Example row 2 <span class="plus"></span></button>
-        <div class="acc-body"><div class="acc-inner">Example text. Expanded placeholder content sits here.
-          <div class="pill-row"><span class="pill">Example</span></div></div></div>
+        <button class="acc-btn"><span class="idx mono">02</span> [Role] · [Organisation] · [Years] <span class="plus"></span></button>
+        <div class="acc-body"><div class="acc-inner">[What you owned, and what changed because of you.]
+          <div class="pill-row"><span class="pill">[Tool]</span></div></div></div>
       </div>
       <div class="acc-item">
-        <button class="acc-btn"><span class="idx mono">03</span> Example row 3 <span class="plus"></span></button>
-        <div class="acc-body"><div class="acc-inner">Example text. Expanded placeholder content sits here.</div></div>
+        <button class="acc-btn"><span class="idx mono">03</span> [Role] · [Organisation] · [Years] <span class="plus"></span></button>
+        <div class="acc-body"><div class="acc-inner">[What you owned, and what changed because of you.]</div></div>
       </div>
       <div class="acc-item">
-        <button class="acc-btn"><span class="idx mono">04</span> Example row 4 <span class="plus"></span></button>
-        <div class="acc-body"><div class="acc-inner">Example text. Expanded placeholder content sits here.</div></div>
+        <button class="acc-btn"><span class="idx mono">04</span> [Role] · [Organisation] · [Years] <span class="plus"></span></button>
+        <div class="acc-body"><div class="acc-inner">[What you owned, and what changed because of you.]</div></div>
       </div>
     </div>
   </section>
 
   <!-- 4 — filterable gallery (cards built from js/content.js) -->
   <section id="four">
-    <div class="sec-head"><h2>Example 4</h2><span class="rule"></span><span class="chip-count" id="galCount">8 shown</span></div>
+    <div class="sec-head"><h2>Projects</h2><span class="rule"></span><span class="chip-count" id="galCount">8 shown</span></div>
     <div class="filters" role="group" aria-label="Filter examples">
-      <button class="fchip" data-filter="all" aria-pressed="true">All examples</button>
-      <button class="fchip" data-filter="a" aria-pressed="false">Example group A</button>
-      <button class="fchip" data-filter="b" aria-pressed="false">Example group B</button>
-      <button class="fchip" data-filter="c" aria-pressed="false">Example group C</button>
+      <button class="fchip" data-filter="all" aria-pressed="true">All projects</button>
+      <button class="fchip" data-filter="a" aria-pressed="false">[Project type A]</button>
+      <button class="fchip" data-filter="b" aria-pressed="false">[Project type B]</button>
+      <button class="fchip" data-filter="c" aria-pressed="false">[Project type C]</button>
     </div>
     <div class="gal reveal" id="gal"></div>
   </section>
 
   <!-- 5 — contact -->
   <section id="five">
-    <div class="sec-head"><h2>Example 5</h2><span class="rule"></span></div>
+    <div class="sec-head"><h2>Contact</h2><span class="rule"></span></div>
     <div class="contact">
       <form class="panel reveal" id="contactForm">
-        <div class="field"><label for="f1">Example field 1</label><input id="f1" name="f1" required></div>
-        <div class="field"><label for="f2">Example field 2</label><input id="f2" name="f2" type="email" required></div>
-        <div class="field"><label for="f3">Example field 3</label>
+        <div class="field"><label for="f1">Your name</label><input id="f1" name="f1" required></div>
+        <div class="field"><label for="f2">Your email</label><input id="f2" name="f2" type="email" required></div>
+        <div class="field"><label for="f3">What is this about</label>
           <select id="f3" name="f3">
-            <option>Example option 1</option>
-            <option>Example option 2</option>
-            <option>Example option 3</option>
+            <option>[Enquiry type — e.g. role opportunity]</option>
+            <option>[Enquiry type — e.g. freelance work]</option>
+            <option>[Enquiry type — e.g. something else]</option>
           </select></div>
-        <div class="field"><label for="f4">Example field 4</label><textarea id="f4" name="f4" rows="4" required></textarea></div>
-        <button class="btn btn-solid" type="submit">Send example</button>
+        <div class="field"><label for="f4">Message</label><textarea id="f4" name="f4" rows="4" required></textarea></div>
+        <button class="btn btn-solid" type="submit">Send message</button>
       </form>
 
       <div class="panel reveal">
         <div class="steps">
-          <div class="step"><span class="step-num" aria-hidden="true">1</span><p><b>Example step 1</b>Example text describing this step.</p></div>
-          <div class="step"><span class="step-num" aria-hidden="true">2</span><p><b>Example step 2</b>Example text describing this step.</p></div>
-          <div class="step"><span class="step-num" aria-hidden="true">3</span><p><b>Example step 3</b>Example text describing this step.</p></div>
+          <div class="step"><span class="step-num" aria-hidden="true">1</span><p><b>[What happens first]</b>[One line — e.g. I read every message myself]</p></div>
+          <div class="step"><span class="step-num" aria-hidden="true">2</span><p><b>[What happens next]</b>[One line — e.g. I reply within two working days]</p></div>
+          <div class="step"><span class="step-num" aria-hidden="true">3</span><p><b>[What happens after]</b>[One line — e.g. we set up a short call]</p></div>
         </div>
         <div class="panel-note">
-          <p>Example text — the form is a demo and does not send anything yet.</p>
-          <button class="btn btn-ghost" data-modal="5">Open example detail</button>
+          <p>[Note about response time, or an alternative way to reach you]</p>
+          <button class="btn btn-ghost" data-modal="5">[Optional extra action]</button>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <span class="mono">Example footer left</span>
-    <span class="mono">Example footer right</span>
+    <span class="mono">© [year] [Your name]</span>
+    <span class="mono">Last updated [month year]</span>
   </footer>
 </main>
 
@@ -230,9 +229,9 @@
   <div class="modal">
     <div class="modal-band" id="mBand"></div>
     <div class="modal-body">
-      <p class="modal-kicker mono" id="mKicker">Example 1.1</p>
-      <h3 id="mTitle">Example title</h3>
-      <p id="mText">Example text.</p>
+      <p class="modal-kicker mono" id="mKicker">[Kicker]</p>
+      <h3 id="mTitle">[Title]</h3>
+      <p id="mText">[Body]</p>
       <div class="pill-row" id="mTags"></div>
     </div>
     <div class="modal-foot">
@@ -245,7 +244,7 @@
   </div>
 </div>
 
-<div class="toast" id="toast" role="status">Example toast — action received</div>
+<div class="toast" id="toast" role="status">[Confirmation message shown after the form is sent]</div>
 
 </body>
 </html>
