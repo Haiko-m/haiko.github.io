@@ -1,38 +1,37 @@
 /* ============================================================
    accordion.js — one row open at a time.
-   Height is set in pixels so the open/close can be transitioned.
+
+   The open/close animation is pure CSS (grid-template-rows 0fr -> 1fr),
+   so there is no height measurement here and nothing to recalculate on
+   resize or when a late-loading font reflows the text.
    ============================================================ */
 
 export function initAccordion(){
-  const items = document.querySelectorAll('.acc-item');
+  const items = [...document.querySelectorAll('.acc-item')];
+  if(!items.length) return;
 
-  items.forEach(item => {
-    const btn = item.querySelector('.acc-btn');
-    const body = item.querySelector('.acc-body');
-    btn.setAttribute('aria-expanded','false');
+  const rows = items.map(item => ({
+    item,
+    button: item.querySelector('.acc-btn')
+  })).filter(row => row.button);
 
-    btn.addEventListener('click', () => {
-      const wasOpen = item.classList.contains('open');
+  rows.forEach(({ item, button }) => {
+    button.setAttribute('aria-expanded', 'false');
 
-      /* Close everything first. */
-      items.forEach(other => {
-        other.classList.remove('open');
-        other.querySelector('.acc-body').style.maxHeight = null;
-        other.querySelector('.acc-btn').setAttribute('aria-expanded','false');
-      });
+    button.addEventListener('click', () => {
+      const willOpen = !item.classList.contains('open');
 
-      /* Then reopen this one, unless it was the one already open. */
-      if(!wasOpen){
+      /* Only the row that is actually open needs closing. */
+      const openRow = rows.find(row => row.item.classList.contains('open'));
+      if(openRow){
+        openRow.item.classList.remove('open');
+        openRow.button.setAttribute('aria-expanded', 'false');
+      }
+
+      if(willOpen){
         item.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded','true');
+        button.setAttribute('aria-expanded', 'true');
       }
     });
-  });
-
-  /* Keep the open row correctly sized if the window is resized. */
-  window.addEventListener('resize', () => {
-    const open = document.querySelector('.acc-item.open .acc-body');
-    if(open) open.style.maxHeight = open.scrollHeight + 'px';
   });
 }
