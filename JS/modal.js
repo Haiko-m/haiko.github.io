@@ -1,59 +1,74 @@
 /* ============================================================
    modal.js — overlay panel.
 
-   Any element with data-modal="<index>" opens it; the index points
-   at an entry in the modals array in content.js. Listening on
-   document means cards added later still work.
+   Any element carrying data-modal="<index>" opens it; the index points at
+   an entry in `modals` in content.js. The click listener sits on document
+   so cards rendered later (the gallery) work without re-binding.
    ============================================================ */
 
 import { modals } from './content.js';
 
+/* Elements that can hold focus, minus any that are currently unavailable. */
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function initModal(){
-  const scrim   = document.getElementById('scrim');
-  const kicker  = document.getElementById('mKicker');
-  const title   = document.getElementById('mTitle');
-  const text    = document.getElementById('mText');
-  const tagRow  = document.getElementById('mTags');
-  const closeEl = document.getElementById('mClose');
-  const band    = document.getElementById('mBand');
-  if(!scrim) return;
+  const scrim = document.getElementById('scrim');
+  if(!scrim || !modals.length) return;
+
+  const el = {
+    band:   document.getElementById('mBand'),
+    kicker: document.getElementById('mKicker'),
+    title:  document.getElementById('mTitle'),
+    text:   document.getElementById('mText'),
+    tags:   document.getElementById('mTags'),
+    close:  document.getElementById('mClose'),
+    prev:   document.getElementById('mPrev'),
+    next:   document.getElementById('mNext')
+  };
+  if(Object.values(el).some(node => !node)) return;
 
   let index = 0;
   let lastFocused = null;
 
+  const isOpen = () => scrim.classList.contains('on');
+
   function render(){
     const item = modals[index];
 
-    /* Tint the header band to match the card that opened it. Falling back
-       to '' restores the accent gradient defined in main.css. */
-    band.style.background = item.shade
+    /* Tint the header band to match the card that opened it.
+       Clearing the property restores the gradient defined in main.css. */
+    el.band.style.background = item.shade
       ? `linear-gradient(140deg, ${item.shade}, var(--card))`
       : '';
 
-    kicker.textContent = item.kicker;
-    title.textContent = item.title;
-    text.textContent = item.text;
-    tagRow.replaceChildren(...(item.tags || []).map(t => {
-      const span = document.createElement('span');
-      span.className = 'pill';
-      span.textContent = t;
-      return span;
+    el.kicker.textContent = item.kicker;
+    el.title.textContent = item.title;
+    el.text.textContent = item.text;
+
+    el.tags.replaceChildren(...(item.tags ?? []).map(label => {
+      const pill = document.createElement('span');
+      pill.className = 'pill';
+      pill.textContent = label;
+      return pill;
     }));
   }
 
-  function open(i){
-    index = Math.max(0, Math.min(i, modals.length - 1));
+  function open(next){
+    if(!Number.isInteger(next) || next < 0 || next >= modals.length) return;
+
+    index = next;
     render();
     lastFocused = document.activeElement;
     scrim.classList.add('on');
-    document.body.style.overflow = 'hidden';   /* stop the page scrolling behind */
-    closeEl.focus();
+    document.documentElement.classList.add('is-locked');   /* see main.css */
+    el.close.focus();
   }
 
   function close(){
+    if(!isOpen()) return;
     scrim.classList.remove('on');
-    document.body.style.overflow = '';
-    lastFocused?.focus();                       /* return focus where it came from */
+    document.documentElement.classList.remove('is-locked');
+    lastFocused?.focus();                                  /* hand focus back */
   }
 
   function step(delta){
@@ -61,31 +76,43 @@ export function initModal(){
     render();
   }
 
-  document.addEventListener('click', (e) => {
-    const trigger = e.target.closest('[data-modal]');
+  /* Keep Tab cycling inside the dialog while it is open. */
+  function trapFocus(event){
+    const focusable = [...scrim.querySelectorAll(FOCUSABLE)];
+    if(!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const target = event.shiftKey
+      ? (document.activeElement === first ? last : null)
+      : (document.activeElement === last ? first : null);
+
+    if(target){
+      event.preventDefault();
+      target.focus();
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest('[data-modal]');
     if(trigger) open(Number(trigger.dataset.modal));
   });
 
-  closeEl.addEventListener('click', close);
-  scrim.addEventListener('click', (e) => { if(e.target === scrim) close(); });
-  document.getElementById('mPrev').addEventListener('click', () => step(-1));
-  document.getElementById('mNext').addEventListener('click', () => step(1));
-
-  document.addEventListener('keydown', (e) => {
-    if(!scrim.classList.contains('on')) return;
-    if(e.key === 'Escape')     close();
-    if(e.key === 'ArrowLeft')  step(-1);
-    if(e.key === 'ArrowRight') step(1);
-    if(e.key === 'Tab')        trapFocus(e);
+  el.close.addEventListener('click', close);
+  el.prev.addEventListener('click', () => step(-1));
+  el.next.addEventListener('click', () => step(1));
+  scrim.addEventListener('click', event => {
+    if(event.target === scrim) close();                    /* backdrop only */
   });
 
-  /* Keep Tab cycling inside the dialog while it's open. */
-  function trapFocus(e){
-    const focusable = scrim.querySelectorAll('button, [href], input, select, textarea');
-    if(!focusable.length) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  }
+  document.addEventListener('keydown', event => {
+    if(!isOpen()) return;
+
+    switch(event.key){
+      case 'Escape':     close();     break;
+      case 'ArrowLeft':  step(-1);    break;
+      case 'ArrowRight': step(1);     break;
+      case 'Tab':        trapFocus(event); break;
+    }
+  });
 }
