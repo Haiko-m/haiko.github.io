@@ -1,7 +1,8 @@
 /* ============================================================
    main.css — layout and components. Reads values from tokens.css.
    Sections: base / topbar / hero / section framing / bento /
-             tabs / accordion / gallery / contact / modal / toast
+             tabs / accordion / gallery / contact / modal / toast /
+             footer
    ============================================================ */
 
 /* ---------- base ---------- */
@@ -68,6 +69,19 @@ button,input,textarea,select{font:inherit; color:inherit;}
          transition:background .3s ease, transform .4s ease;}
 .brand:hover .brand-mark{transform:rotate(12deg) scale(1.06);}
 
+/* Link back up to the hub at haiko.be. Sits before .navlinks in the markup,
+   so the auto margin on the nav below pushes the nav to the right and leaves
+   this on the left, where a back link belongs. Deliberately outside
+   .navlinks — the scroll-spy treats everything in there as an in-page anchor. */
+.sitelink{
+  flex:none; display:inline-flex; align-items:center; gap:.45em;
+  text-decoration:none; color:var(--ink-dim);
+  font-size:var(--fs-xs); padding:7px 12px; border-radius:999px;
+  box-shadow:inset 0 0 0 1.5px var(--line);
+  transition:background .2s ease, color .2s ease;
+}
+.sitelink:hover{background:var(--accent-soft); color:var(--ink);}
+
 .navlinks{display:flex; gap:4px; margin-left:auto;}
 .navlinks a{text-decoration:none; color:var(--ink-dim); font-size:var(--fs-sm);
             padding:7px 12px; border-radius:999px; transition:.2s;}
@@ -81,6 +95,13 @@ button,input,textarea,select{font:inherit; color:inherit;}
   .navlinks::-webkit-scrollbar{display:none;}
   .navlinks a{padding:7px 10px; font-size:12.5px; white-space:nowrap;}
 }
+/* Give the nav room on small screens: shed the arrow, then the label.
+   The footer link still gets people back to the hub. */
+@media(max-width:560px){
+  .sitelink{padding:7px 10px;}
+  .sitelink span{display:none;}
+}
+@media(max-width:420px){ .sitelink{display:none;} }
 
 .swatches{display:flex; gap:6px; margin-left:auto;}
 @media(min-width:721px){ .swatches{margin-left:14px;} }
@@ -261,3 +282,6 @@ section{padding:var(--pad-section) 0 0;}
 footer{margin-top:64px; padding:22px 0 40px; border-top:1px solid var(--line);
        display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
        font-size:12px; color:var(--ink-dim);}
+/* Second way back to the hub, for anyone who reaches the bottom. */
+.footlink{color:var(--ink-dim); text-decoration:none; transition:color .2s ease;}
+.footlink:hover{color:var(--ink); text-decoration:underline; text-underline-offset:.25em;}
